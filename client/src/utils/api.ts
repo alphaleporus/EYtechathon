@@ -29,7 +29,6 @@ api.interceptors.response.use(
     (error) => {
         // Don't auto-redirect on auth errors, let components handle it
         if (error.response?.status === 401) {
-            console.log('401 error - invalid credentials or expired token');
             // Only clear storage, don't redirect
             localStorage.removeItem('token');
             localStorage.removeItem('user');

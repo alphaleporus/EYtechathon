@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Search, Edit2, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, ChevronLeft, ChevronRight, Users } from 'lucide-react';
 import { Card } from './ui/card';
 import {Button} from './ui/button';
 import {Input} from './ui/input';

@@ -17,62 +17,50 @@ function App() {
 
     // Check if user is already authenticated - ONLY on mount
     useEffect(() => {
-        console.log('App mounted, checking authentication...');
         if (authService.isAuthenticated()) {
-            console.log('User is authenticated, showing app');
             setCurrentView('app');
         } else {
-            console.log('User is not authenticated, showing landing page');
             setCurrentView('landing');
         }
     }, []); // Empty dependency array - only run once on mount
 
     const handleGetStarted = () => {
-        console.log('Get started clicked');
         setCurrentView('login');
     };
 
     const handleBackToLanding = () => {
-        console.log('Back to landing clicked');
         setCurrentView('landing');
     };
 
     const handleShowRegister = () => {
-        console.log('Show register clicked');
         setCurrentView('register');
     };
 
     const handleBackToLogin = () => {
-        console.log('Back to login clicked');
         setCurrentView('login');
     };
 
     const handleLogin = () => {
-        console.log('Login successful, transitioning to app');
         setCurrentView('app');
         setCurrentPage('dashboard');
     };
 
     const handleRegister = () => {
-        console.log('Registration successful, transitioning to app');
         setCurrentView('app');
         setCurrentPage('dashboard');
     };
 
     const handleLogout = () => {
-        console.log('Logout clicked');
         authService.logout();
         setCurrentView('landing');
         setCurrentPage('dashboard');
     };
 
     const handleNavigate = (page: string) => {
-        console.log('Navigate to:', page);
         setCurrentPage(page);
     };
 
     const handleAddProvider = () => {
-        console.log('Add provider clicked');
         setIsAddProviderModalOpen(true);
     };
 
@@ -90,8 +78,6 @@ function App() {
                 return <Dashboard/>;
         }
     };
-
-    console.log('Rendering App with view:', currentView);
 
     if (currentView === 'landing') {
         return <LandingPage onGetStarted={handleGetStarted}/>;
