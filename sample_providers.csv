@@ -1,0 +1,11 @@
+npi,first_name,last_name,specialty,phone,email,address_line1,city,state,zip_code,license_number,license_state,credential
+1234567890,John,Doe,Cardiology,555-0100,john.doe@example.com,123 Medical Plaza,New York,NY,10001,MD12345,NY,MD
+2345678901,Jane,Smith,Pediatrics,555-0200,jane.smith@example.com,456 Health Ave,Los Angeles,CA,90001,MD67890,CA,MD
+BADNPI,Alice,Johnson,Neurology,555-0300,invalid-email,789 Wellness St,Chicago,IL,60601,MD11111,IL,MD
+3456789012,Bob,Williams,Oncology,555-0400,bob.williams@example.com,321 Care Blvd,Houston,TX,77001,MD22222,TX,MD
+4567890123,Carol,Davis,Dermatology,555-0500,carol.davis@example.com,654 Medical Center,Phoenix,AZ,85001,MD33333,AZ,MD
+5678901234,David,Martinez,Orthopedics,555-0600,david.martinez@example.com,987 Health Plaza,Philadelphia,PA,19101,MD44444,PA,MD
+6789012345,Emily,Brown,Psychiatry,555-0700,emily.brown@example.com,147 Wellness Ave,San Antonio,TX,78201,MD55555,TX,MD
+7890123456,Frank,Wilson,Radiology,555-0800,frank.wilson@example.com,258 Medical Dr,San Diego,CA,92101,MD66666,CA,DO
+,Missing,Name,Cardiology,555-0900,error@example.com,369 Health Rd,Dallas,TX,75201,MD77777,TX,MD
+8901234567,Grace,Taylor,Anesthesiology,555-1000,grace.taylor@example.com,741 Care St,San Jose,CA,95101,MD88888,CA,MD
