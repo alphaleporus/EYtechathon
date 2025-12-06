@@ -5,6 +5,7 @@ import {Badge} from './ui/badge';
 import {Button} from './ui/button';
 import toast from 'react-hot-toast';
 import {exportDashboardToPDF} from '../utils/export';
+import {eventEmitter, EVENTS} from '../utils/events';
 import {
     PieChart,
     Pie,
@@ -55,6 +56,23 @@ export function Dashboard() {
 
     useEffect(() => {
         fetchProviders();
+
+        // Listen for provider updates
+        const handleProviderUpdate = () => {
+            console.log('Provider update event received, refreshing dashboard...');
+            fetchProviders();
+        };
+
+        eventEmitter.on(EVENTS.PROVIDER_ADDED, handleProviderUpdate);
+        eventEmitter.on(EVENTS.PROVIDER_UPDATED, handleProviderUpdate);
+        eventEmitter.on(EVENTS.PROVIDER_DELETED, handleProviderUpdate);
+
+        // Cleanup listeners on unmount
+        return () => {
+            eventEmitter.off(EVENTS.PROVIDER_ADDED, handleProviderUpdate);
+            eventEmitter.off(EVENTS.PROVIDER_UPDATED, handleProviderUpdate);
+            eventEmitter.off(EVENTS.PROVIDER_DELETED, handleProviderUpdate);
+        };
     }, []);
 
     const fetchProviders = async () => {

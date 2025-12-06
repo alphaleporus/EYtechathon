@@ -8,6 +8,7 @@ import {EmptyState} from './EmptyState';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
 import {exportProvidersToCSV} from '../utils/export';
+import {eventEmitter, EVENTS} from '../utils/events';
 
 interface Provider {
     id: string;
@@ -94,6 +95,20 @@ export function Providers({onAddProvider}: ProvidersProps) {
     useEffect(() => {
         fetchProviders();
     }, [currentPage, searchQuery, selectedSpecialty, selectedState, selectedQualityRange]);
+
+    // Listen for provider updates from other components
+    useEffect(() => {
+        const handleProviderAdded = () => {
+            console.log('Provider added event received, refreshing providers list...');
+            fetchProviders();
+        };
+
+        eventEmitter.on(EVENTS.PROVIDER_ADDED, handleProviderAdded);
+
+        return () => {
+            eventEmitter.off(EVENTS.PROVIDER_ADDED, handleProviderAdded);
+        };
+    }, []);
 
     const fetchProviders = async () => {
         try {
@@ -187,6 +202,7 @@ export function Providers({onAddProvider}: ProvidersProps) {
 
             await api.put(`/providers/${editingProvider.id}`, updateData);
             toast.success('Provider updated successfully!');
+            eventEmitter.emit(EVENTS.PROVIDER_UPDATED); // Notify other components
             setShowEditModal(false);
             setEditingProvider(null);
             fetchProviders(); // Refresh the list
@@ -216,6 +232,7 @@ export function Providers({onAddProvider}: ProvidersProps) {
         try {
             await api.delete(`/providers/${id}`);
             toast.success('Provider deleted successfully!');
+            eventEmitter.emit(EVENTS.PROVIDER_DELETED); // Notify other components
             fetchProviders(); // Refresh the list
         } catch (error) {
             console.error('Error deleting provider:', error);

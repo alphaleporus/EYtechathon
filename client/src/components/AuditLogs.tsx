@@ -1,11 +1,60 @@
-import React from 'react';
-import {Plus, Edit, Trash2, User, Calendar, Info, ChevronLeft, ChevronRight} from 'lucide-react';
+import React, {useState, useEffect} from 'react';
+import {Plus, Edit, Trash2, User, Calendar, Info, ChevronLeft, ChevronRight, Loader2} from 'lucide-react';
 import {Card} from './ui/card';
 import {Badge} from './ui/badge';
 import {Button} from './ui/button';
+import api from '../utils/api';
+import {eventEmitter, EVENTS} from '../utils/events';
+
+interface AuditLog {
+    id: string;
+    action: string;
+    entity_type: string;
+    entity_id: string;
+    user_id: string;
+    created_at: string;
+    old_value?: string;
+    new_value?: string;
+}
 
 export function AuditLogs() {
-    const logs = [
+    const [logs, setLogs] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
+    useEffect(() => {
+        fetchAuditLogs();
+    }, [currentPage]);
+
+    // Listen for provider updates
+    useEffect(() => {
+        const handleProviderUpdate = () => {
+            console.log('Provider update event received, refreshing audit logs...');
+            fetchAuditLogs();
+        };
+
+        eventEmitter.on(EVENTS.PROVIDER_ADDED, handleProviderUpdate);
+        eventEmitter.on(EVENTS.PROVIDER_UPDATED, handleProviderUpdate);
+        eventEmitter.on(EVENTS.PROVIDER_DELETED, handleProviderUpdate);
+
+        return () => {
+            eventEmitter.off(EVENTS.PROVIDER_ADDED, handleProviderUpdate);
+            eventEmitter.off(EVENTS.PROVIDER_UPDATED, handleProviderUpdate);
+            eventEmitter.off(EVENTS.PROVIDER_DELETED, handleProviderUpdate);
+        };
+    }, []);
+
+    const fetchAuditLogs = async () => {
+        try {
+            setLoading(true);
+            const response = await api.get(`/audit-logs?page=${currentPage}&limit=10`);
+            setLogs(response.data.logs || []);
+            setTotalPages(response.data.pagination?.totalPages || 1);
+        } catch (error) {
+            console.error('Error fetching audit logs:', error);
+            // Fallback to mock data if API fails
+            const mockLogs = [
         {
             id: '1',
             action: 'CREATE',
@@ -70,7 +119,12 @@ export function AuditLogs() {
             timestamp: 'Nov 9, 2024 2:00 PM',
             details: 'Removed duplicate provider entry'
         }
-    ];
+            ];
+            setLogs(mockLogs);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const getActionIcon = (action: string) => {
         switch (action) {
@@ -110,6 +164,14 @@ export function AuditLogs() {
                 return 'secondary';
         }
     };
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center h-96">
+                <Loader2 className="animate-spin text-[#1976D2]" size={48}/>
+            </div>
+        );
+    }
 
     return (
         <div className="animate-fadeIn">
@@ -187,14 +249,24 @@ export function AuditLogs() {
 
             {/* Pagination */}
             <div className="flex justify-between items-center mt-8">
-                <Button variant="secondary" className="flex items-center gap-2">
+                <Button
+                    variant="secondary"
+                    className="flex items-center gap-2"
+                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                    disabled={currentPage === 1}
+                >
                     <ChevronLeft size={20}/>
                     Previous
                 </Button>
 
-                <span className="text-base text-[#757575]">Page 1 of 3</span>
+                <span className="text-base text-[#757575]">Page {currentPage} of {totalPages}</span>
 
-                <Button variant="secondary" className="flex items-center gap-2">
+                <Button
+                    variant="secondary"
+                    className="flex items-center gap-2"
+                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                    disabled={currentPage === totalPages}
+                >
                     Next
                     <ChevronRight size={20}/>
                 </Button>

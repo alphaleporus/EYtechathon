@@ -6,6 +6,7 @@ import {Badge} from './ui/badge';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
 import {exportValidationReportToPDF} from '../utils/export';
+import {eventEmitter, EVENTS} from '../utils/events';
 
 interface ValidationError {
     row: number;
@@ -41,6 +42,7 @@ interface ProviderRecord {
     isValid: boolean;
     errors?: ValidationError[];
     warnings?: ValidationError[];
+    addedToProviders?: boolean;
 }
 
 export function FileValidation() {
@@ -164,19 +166,45 @@ export function FileValidation() {
 
     const handleAddProvider = async (record: ProviderRecord) => {
         try {
-            await api.post('/providers', {
+            // Split name into first and last name
+            const nameParts = record.name.trim().split(' ');
+            const firstName = nameParts[0] || '';
+            const lastName = nameParts.slice(1).join(' ') || nameParts[0]; // If no last name, use first name
+
+            const providerData = {
                 npi: record.npi,
-                name: record.name,
+                first_name: firstName,
+                last_name: lastName,
                 email: record.email,
                 phone: record.phone,
                 specialty: record.specialty,
-                licenseState: record.license_state,
-                qualityScore: parseFloat(record.quality_score),
-            });
-            toast.success(`${record.name} added to providers successfully!`);
+                license_state: record.license_state,
+                is_active: true
+                // Note: data_quality_score is calculated by the server
+            };
+
+            await api.post('/providers', providerData);
+            toast.success(`✅ ${record.name} added to providers successfully!`);
+
+            // Emit event to notify other components (Dashboard, Providers, AuditLogs)
+            eventEmitter.emit(EVENTS.PROVIDER_ADDED);
+
+            // Update the record in the local state to show it's been added
+            if (validationResult) {
+                const updatedRecords = validationResult.data.allRecords.map(r =>
+                    r.row === record.row ? {...r, addedToProviders: true} : r
+                );
+                setValidationResult({
+                    ...validationResult,
+                    data: {
+                        ...validationResult.data,
+                        allRecords: updatedRecords
+                    }
+                });
+            }
         } catch (error: any) {
             console.error('Error adding provider:', error);
-            toast.error(error.response?.data?.message || 'Failed to add provider');
+            toast.error(error.response?.data?.error?.message || 'Failed to add provider');
         }
     };
 
@@ -508,9 +536,20 @@ export function FileValidation() {
                                                 <Button
                                                     onClick={() => handleAddProvider(record)}
                                                     className="ml-4 flex-shrink-0"
+                                                    disabled={record.addedToProviders}
+                                                    variant={record.addedToProviders ? "secondary" : "default"}
                                                 >
-                                                    <Plus size={18}/>
-                                                    Add to Providers
+                                                    {record.addedToProviders ? (
+                                                        <>
+                                                            <CheckCircle size={18}/>
+                                                            Added
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <Plus size={18}/>
+                                                            Add to Providers
+                                                        </>
+                                                    )}
                                                 </Button>
                                             )}
                                         </div>
