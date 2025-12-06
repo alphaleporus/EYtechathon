@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Plus, Search, Edit2, Trash2, ChevronLeft, ChevronRight, Users} from 'lucide-react';
+import {Plus, Search, Edit2, Trash2, ChevronLeft, ChevronRight, Users, Download} from 'lucide-react';
 import {Card} from './ui/card';
 import {Button} from './ui/button';
 import {Input} from './ui/input';
@@ -7,6 +7,7 @@ import {Badge} from './ui/badge';
 import {EmptyState} from './EmptyState';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
+import {exportProvidersToCSV} from '../utils/export';
 
 interface Provider {
     id: string;
@@ -79,6 +80,19 @@ export function Providers({onAddProvider}: ProvidersProps) {
         return <Badge variant="error">{score}%</Badge>;
     };
 
+    const handleExport = async () => {
+        try {
+            // Fetch all providers for export
+            const response = await api.get('/providers?limit=10000');
+            const allProviders = response.data.providers || [];
+            exportProvidersToCSV(allProviders);
+            toast.success(`Exported ${allProviders.length} providers to CSV!`);
+        } catch (error) {
+            console.error('Export error:', error);
+            toast.error('Failed to export providers');
+        }
+    };
+
     if (loading) {
         return (
             <div className="flex items-center justify-center h-96">
@@ -95,10 +109,16 @@ export function Providers({onAddProvider}: ProvidersProps) {
                     <h1 className="text-3xl font-bold mb-2">Providers</h1>
                     <p className="text-base text-[#757575]">Manage healthcare provider information</p>
                 </div>
-                <Button onClick={onAddProvider} className="hover:scale-105 transition-transform">
-                    <Plus size={20}/>
-                    Add Provider
-                </Button>
+                <div className="flex gap-3">
+                    <Button onClick={handleExport} variant="secondary" className="hover:scale-105 transition-transform">
+                        <Download size={20}/>
+                        Export CSV
+                    </Button>
+                    <Button onClick={onAddProvider} className="hover:scale-105 transition-transform">
+                        <Plus size={20}/>
+                        Add Provider
+                    </Button>
+                </div>
             </div>
 
             {/* Search Bar */}

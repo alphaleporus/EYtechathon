@@ -1,10 +1,11 @@
 import React, {useState, useRef} from 'react';
-import {Upload, CheckCircle, AlertCircle, AlertTriangle, FileText, Info, X, Loader2, Plus} from 'lucide-react';
+import {Upload, CheckCircle, AlertCircle, AlertTriangle, FileText, Info, X, Loader2, Plus, Download} from 'lucide-react';
 import {Card} from './ui/card';
 import {Button} from './ui/button';
 import {Badge} from './ui/badge';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
+import {exportValidationReportToPDF} from '../utils/export';
 
 interface ValidationError {
     row: number;
@@ -127,6 +128,14 @@ export function FileValidation() {
         setValidationResult(null);
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
+        }
+    };
+
+    const handleExportReport = () => {
+        if (validationResult?.data) {
+            const fileName = `validation_report_${new Date().toISOString().split('T')[0]}.pdf`;
+            exportValidationReportToPDF(validationResult.data, fileName);
+            toast.success('Validation report exported to PDF!');
         }
     };
 
@@ -260,10 +269,18 @@ export function FileValidation() {
                                     </p>
                                 </div>
                             </div>
-                            <Button variant="secondary" onClick={handleReset}>
-                                <X size={20}/>
-                                Remove
-                            </Button>
+                            <div className="flex gap-2">
+                                {validationResult && (
+                                    <Button onClick={handleExportReport} variant="secondary">
+                                        <Download size={20}/>
+                                        Export Report
+                                    </Button>
+                                )}
+                                <Button variant="secondary" onClick={handleReset}>
+                                    <X size={20}/>
+                                    Remove
+                                </Button>
+                            </div>
                         </div>
                     </Card>
 

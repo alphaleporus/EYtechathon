@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {Users, UserCheck, TrendingUp, Clock, Award, Activity, AlertCircle} from 'lucide-react';
+import {Users, UserCheck, TrendingUp, Clock, Award, Activity, AlertCircle, Download} from 'lucide-react';
 import {Card} from './ui/card';
 import {Badge} from './ui/badge';
+import {Button} from './ui/button';
+import toast from 'react-hot-toast';
+import {exportDashboardToPDF} from '../utils/export';
 import {
     PieChart,
     Pie,
@@ -206,9 +209,22 @@ export function Dashboard() {
     return (
         <div className="animate-fadeIn">
             {/* Header */}
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold mb-2">Analytics Dashboard</h1>
-                <p className="text-base text-[#757575]">Comprehensive insights and data visualization</p>
+            <div className="mb-8 flex justify-between items-start">
+                <div>
+                    <h1 className="text-3xl font-bold mb-2">Analytics Dashboard</h1>
+                    <p className="text-base text-[#757575]">Comprehensive insights and data visualization</p>
+                </div>
+                <Button
+                    onClick={() => {
+                        exportDashboardToPDF(stats, providers);
+                        toast.success('Dashboard analytics exported to PDF!');
+                    }}
+                    variant="secondary"
+                    className="hover:scale-105 transition-transform"
+                >
+                    <Download size={20}/>
+                    Export PDF
+                </Button>
             </div>
 
             {/* Stats Cards */}
