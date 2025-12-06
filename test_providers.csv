@@ -1,0 +1,21 @@
+npi,name,email,phone,specialty,license_state,quality_score
+1234567890,Dr. Rajesh Kumar,rajesh.kumar@apollohospital.com,+91-98765-43210,Cardiology,MH,92
+2345678901,Dr. Priya Sharma,priya.sharma@fortishealthcare.com,+91-98765-54321,Internal Medicine,DL,88
+3456789012,Dr. Amit Patel,amit.patel@maxhealthcare.com,+91-97654-32109,Pediatrics,GJ,95
+12345,Dr. Divya Reddy,divya.reddy,9876543210,General Practice,Maharashtra,150
+4567890123,Dr. Suresh Menon,suresh.menon@aiims.com,+91-96543-21098,Orthopedics,KA,90
+5678901234,Dr. Ananya Singh,ananya.singh@manipal.com,+91-95432-10987,Dermatology,KA,87
+6789012345,Dr. Vikram Rao,vikram.rao@narayana.com,+91-94321-09876,Neurology,TS,93
+789012,Dr. Kavita Joshi,kavita.joshi@invalid,91-98765-43210,Oncology,RJ,85
+7890123456,Dr. Arjun Nair,arjun.nair@medanta.com,+91-93210-98765,Psychiatry,HR,91
+8901234567,Dr. Sneha Iyer,sneha.iyer@gemhospital.com,+91-92109-87654,Radiology,TN,89
+9012345678,Dr. Karan Verma,karan.verma@blk.com,+91-91098-76543,Anesthesiology,DL,94
+1230456789,Dr. Lakshmi Krishnan,lakshmi.krishnan@cmchospital.com,+91-90987-65432,Emergency Medicine,TN,86
+2341567890,Dr. Rohit Deshmukh,rohit.deshmukh@fortis.com,+91-89876-54321,Family Medicine,MH,92
+3452678901,Dr. Meera Bose,meera.bose@apollo.com,+91-88765-43210,Obstetrics and Gynecology,WB,88
+4563789012,Dr. Sanjay Gupta,sanjay.gupta@max.com,+91-87654-32109,Ophthalmology,UP,90
+5674890123,Dr. Pooja Malhotra,pooja.malhotra@fortis.com,+91-86543-21098,Pathology,PB,85
+123456,Dr. Ravi Chandran,ravi.chandran@email,9123456789,Physical Medicine and Rehabilitation,KL,110
+6785901234,Dr. Nisha Bansal,nisha.bansal@lilavati.com,+91-85432-10987,Surgery,MH,93
+7896012345,Dr. Aditya Kapoor,aditya.kapoor@indraprastha.com,+91-84321-09876,Urology,DL,91
+8907123456,Dr. Deepika Menon,deepika.menon@manipal.com,+91-83210-98765,Cardiology,KA,89

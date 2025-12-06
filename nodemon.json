@@ -1,0 +1,15 @@
+{
+  "watch": [
+    "server"
+  ],
+  "ignore": [
+    "database.json",
+    "*.log",
+    "uploads/*",
+    "node_modules",
+    "client",
+    ".git"
+  ],
+  "ext": "js,json",
+  "delay": 2000
+}
