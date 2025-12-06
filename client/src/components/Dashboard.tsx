@@ -23,10 +23,14 @@ import api from '../utils/api';
 
 interface Provider {
     id: string;
-    name: string;
+    name?: string;
+    first_name?: string;
+    last_name?: string;
     specialty: string;
-    licenseState: string;
-    qualityScore: number;
+    licenseState?: string;
+    license_state?: string;
+    qualityScore?: number;
+    data_quality_score?: number;
 }
 
 interface DashboardStats {
@@ -52,16 +56,32 @@ export function Dashboard() {
 
     const fetchProviders = async () => {
         try {
-            const response = await api.get('/providers');
+            // Fetch all providers without pagination
+            const response = await api.get('/providers?limit=10000&page=1');
+            console.log('API Response:', response.data);
+
             const providersData = response.data.providers || [];
-            setProviders(providersData);
+            console.log('Providers fetched:', providersData.length);
+
+            // Normalize provider data to handle both formats
+            const normalizedProviders = providersData.map((p: any) => ({
+                ...p,
+                name: p.name || `${p.first_name || ''} ${p.last_name || ''}`.trim(),
+                licenseState: p.licenseState || p.license_state || p.state,
+                qualityScore: p.qualityScore || p.quality_score || p.data_quality_score || 0
+            }));
+
+            console.log('Normalized providers:', normalizedProviders.length);
+            setProviders(normalizedProviders);
 
             // Calculate stats
-            const total = providersData.length;
-            const active = providersData.filter((p: Provider) => p.qualityScore >= 60).length;
+            const total = normalizedProviders.length;
+            const active = normalizedProviders.filter((p: Provider) => (p.qualityScore || 0) >= 60).length;
             const avgScore = total > 0
-                ? providersData.reduce((sum: number, p: Provider) => sum + p.qualityScore, 0) / total
+                ? normalizedProviders.reduce((sum: number, p: Provider) => sum + (p.qualityScore || 0), 0) / total
                 : 0;
+
+            console.log('Stats:', {total, active, avgScore: Math.round(avgScore)});
 
             setStats({
                 totalProviders: total,

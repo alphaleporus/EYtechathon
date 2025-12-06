@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
     try {
         const db = getDatabase();
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
+        const limit = parseInt(req.query.limit) || 1000; // Default to 1000 to get all providers
         const search = req.query.search || '';
         const specialty = req.query.specialty || '';
         const state = req.query.state || '';
@@ -65,7 +65,11 @@ router.get('/', (req, res) => {
         const totalPages = Math.ceil(total / limit);
         const offset = (page - 1) * limit;
 
+        console.log(`[Providers API] Total in DB: ${total}, Page: ${page}, Limit: ${limit}, Offset: ${offset}`);
+
         providers = providers.slice(offset, offset + limit);
+
+        console.log(`[Providers API] Returning ${providers.length} providers`);
 
         res.json({
             providers,

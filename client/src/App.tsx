@@ -9,6 +9,7 @@ import {FileValidation} from './components/FileValidation';
 import {AuditLogs} from './components/AuditLogs';
 import {AddProviderModal} from './components/AddProviderModal';
 import {authService} from './utils/auth';
+import {Toaster} from 'react-hot-toast';
 
 function App() {
     const [currentView, setCurrentView] = useState<'landing' | 'login' | 'register' | 'app'>('landing');
@@ -105,6 +106,32 @@ function App() {
     // App view
     return (
         <>
+            <Toaster
+                position="top-right"
+                toastOptions={{
+                    duration: 4000,
+                    style: {
+                        background: '#fff',
+                        color: '#212121',
+                        padding: '16px',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                    },
+                    success: {
+                        iconTheme: {
+                            primary: '#43A047',
+                            secondary: '#fff',
+                        },
+                    },
+                    error: {
+                        iconTheme: {
+                            primary: '#E53935',
+                            secondary: '#fff',
+                        },
+                    },
+                }}
+            />
+
             <Layout
                 currentPage={currentPage}
                 onNavigate={handleNavigate}

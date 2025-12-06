@@ -4,6 +4,7 @@ import {Card} from './ui/card';
 import {Button} from './ui/button';
 import {Badge} from './ui/badge';
 import api from '../utils/api';
+import toast from 'react-hot-toast';
 
 interface ValidationError {
     row: number;
@@ -61,13 +62,13 @@ export function FileValidation() {
     const handleFile = async (file: File) => {
         const validTypes = ['text/csv', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
         if (!validTypes.includes(file.type) && !file.name.endsWith('.csv') && !file.name.endsWith('.xlsx')) {
-            alert('Please upload a CSV or XLSX file');
+            toast.error('Please upload a CSV or XLSX file');
             return;
         }
 
         const maxSize = 10 * 1024 * 1024;
         if (file.size > maxSize) {
-            alert('File size must be less than 10MB');
+            toast.error('File size must be less than 10MB');
             return;
         }
 
@@ -87,10 +88,11 @@ export function FileValidation() {
             if (response.data.success) {
                 setValidationResult(response.data);
                 setFileUploaded(true);
+                toast.success(`File validated successfully! ${response.data.data.validRecords} valid records found.`);
             }
         } catch (error: any) {
             console.error('Upload error:', error);
-            alert(error.response?.data?.message || 'Failed to upload file. Please try again.');
+            toast.error(error.response?.data?.message || 'Failed to upload file. Please try again.');
         } finally {
             setIsUploading(false);
         }
@@ -162,10 +164,10 @@ export function FileValidation() {
                 licenseState: record.license_state,
                 qualityScore: parseFloat(record.quality_score),
             });
-            alert(`Provider ${record.name} added successfully!`);
+            toast.success(`${record.name} added to providers successfully!`);
         } catch (error: any) {
             console.error('Error adding provider:', error);
-            alert(error.response?.data?.message || 'Failed to add provider');
+            toast.error(error.response?.data?.message || 'Failed to add provider');
         }
     };
 
