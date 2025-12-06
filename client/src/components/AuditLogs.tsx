@@ -25,6 +25,7 @@ export function AuditLogs() {
 
     useEffect(() => {
         fetchAuditLogs();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     // Listen for provider updates
@@ -45,11 +46,97 @@ export function AuditLogs() {
         };
     }, []);
 
+    const generateLogDetails = (log: AuditLog) => {
+        const entityName = log.entity_type === 'provider' ? 'provider' : log.entity_type;
+
+        switch (log.action) {
+            case 'CREATE':
+                if (log.new_value) {
+                    try {
+                        const data = typeof log.new_value === 'string' ? JSON.parse(log.new_value) : log.new_value;
+                        const name = data.first_name && data.last_name
+                            ? `${data.first_name} ${data.last_name}`
+                            : data.name || 'Unknown';
+                        return `Created new ${entityName}: ${name}`;
+                    } catch (e) {
+                        return `Created new ${entityName}`;
+                    }
+                }
+                return `Created new ${entityName}`;
+
+            case 'UPDATE':
+                if (log.old_value && log.new_value) {
+                    try {
+                        const oldData = typeof log.old_value === 'string' ? JSON.parse(log.old_value) : log.old_value;
+                        const newData = typeof log.new_value === 'string' ? JSON.parse(log.new_value) : log.new_value;
+                        const name = newData.first_name && newData.last_name
+                            ? `${newData.first_name} ${newData.last_name}`
+                            : newData.name || 'Unknown';
+
+                        // Find what changed
+                        const changes = [];
+                        if (oldData.specialty !== newData.specialty) changes.push('specialty');
+                        if (oldData.email !== newData.email) changes.push('email');
+                        if (oldData.phone !== newData.phone) changes.push('phone');
+                        if (oldData.data_quality_score !== newData.data_quality_score) changes.push('quality score');
+
+                        if (changes.length > 0) {
+                            return `Updated ${entityName} ${name}: Changed ${changes.join(', ')}`;
+                        }
+                        return `Updated ${entityName}: ${name}`;
+                    } catch (e) {
+                        return `Updated ${entityName}`;
+                    }
+                }
+                return `Updated ${entityName}`;
+
+            case 'DELETE':
+                if (log.old_value) {
+                    try {
+                        const data = typeof log.old_value === 'string' ? JSON.parse(log.old_value) : log.old_value;
+                        const name = data.first_name && data.last_name
+                            ? `${data.first_name} ${data.last_name}`
+                            : data.name || 'Unknown';
+                        return `Deleted ${entityName}: ${name}`;
+                    } catch (e) {
+                        return `Deleted ${entityName}`;
+                    }
+                }
+                return `Deleted ${entityName}`;
+
+            default:
+                return `Performed ${log.action} on ${entityName}`;
+        }
+    };
+
     const fetchAuditLogs = async () => {
         try {
             setLoading(true);
-            const response = await api.get(`/audit-logs?page=${currentPage}&limit=10`);
-            setLogs(response.data.logs || []);
+            const response = await api.get(`/audit/logs?page=${currentPage}&limit=10`);
+
+            // Format logs for display
+            const formattedLogs = (response.data.logs || []).map((log: AuditLog) => {
+                const date = new Date(log.created_at);
+                const formattedDate = date.toLocaleString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                });
+
+                return {
+                    id: log.id,
+                    action: log.action,
+                    entity: log.entity_type,
+                    user: (log as any).user_name || 'System',
+                    timestamp: formattedDate,
+                    details: generateLogDetails(log)
+                };
+            });
+
+            setLogs(formattedLogs);
             setTotalPages(response.data.pagination?.totalPages || 1);
         } catch (error) {
             console.error('Error fetching audit logs:', error);
