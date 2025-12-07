@@ -42,13 +42,12 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       {/* Navigation */}
       <nav className="relative z-10 px-8 py-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
-              <Shield className="text-[#1976D2]" size={28} />
-            </div>
-            <div>
-              <h2 className="text-white">Provider Validator</h2>
-            </div>
+          <div className="flex items-center">
+            <img 
+              src="/logo.png" 
+              alt="Clarity Logo" 
+              className="h-20 w-auto object-contain rounded-xl shadow-lg"
+            />
           </div>
           <button 
             onClick={onGetStarted}
@@ -77,7 +76,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
                 Healthcare Provider
                 <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">
-                  Data Validation
+                  Data Validation Platform
                 </span>
               </h1>
               
@@ -116,43 +115,13 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
 
             {/* Right Column - Visual Element */}
             <div className="relative">
-              <div className="relative bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl">
-                {/* Mock Dashboard Preview */}
-                <div className="space-y-4">
-                  {/* Header */}
-                  <div className="flex items-center justify-between pb-4 border-b border-white/20">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-[#43A047] to-[#2E7D32] rounded-lg"></div>
-                      <div>
-                        <div className="h-3 w-24 bg-white/30 rounded"></div>
-                        <div className="h-2 w-16 bg-white/20 rounded mt-2"></div>
-                      </div>
-                    </div>
-                    <div className="w-8 h-8 bg-white/20 rounded-full"></div>
-                  </div>
-
-                  {/* Stats Cards */}
-                  <div className="grid grid-cols-2 gap-3">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-white/30">
-                        <div className="h-2 w-16 bg-white/40 rounded mb-3"></div>
-                        <div className="h-6 w-12 bg-white/60 rounded"></div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Chart */}
-                  <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-white/30">
-                    <div className="h-3 w-32 bg-white/40 rounded mb-4"></div>
-                    <div className="space-y-3">
-                      {[80, 60, 45, 30].map((width, i) => (
-                        <div key={i} className="flex items-center gap-2">
-                          <div className="h-8 bg-white/40 rounded" style={{ width: `${width}%` }}></div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+              <div className="relative">
+                {/* Dashboard Preview Image */}
+                <img 
+                  src="/dashboard-preview.png" 
+                  alt="Clarity Dashboard Preview" 
+                  className="w-full h-auto rounded-3xl shadow-2xl border-4 border-white/20 hover:scale-105 transition-transform duration-300"
+                />
 
                 {/* Floating Elements */}
                 <div className="absolute -top-6 -right-6 w-20 h-20 bg-[#43A047] rounded-2xl shadow-lg flex items-center justify-center animate-bounce">
@@ -201,9 +170,9 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       <section className="relative z-10 px-8 py-20">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 text-center">
-            <h2 className="text-4xl text-white mb-4">Ready to Get Started?</h2>
+                          <h2 className="text-4xl text-white mb-4">Ready to Get Started?</h2>
             <p className="text-xl text-white/80 mb-8">
-              Join healthcare organizations using Provider Validator for accurate, compliant provider data management
+              Join healthcare organizations using Clarity for accurate, compliant provider data management
             </p>
             <button 
               onClick={onGetStarted}

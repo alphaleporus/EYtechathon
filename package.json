@@ -1,7 +1,7 @@
 {
-  "name": "provider-data-validator",
+  "name": "clarity",
   "version": "1.0.0",
-  "description": "EY Techathon 6.0 - Provider Data Validation System",
+  "description": "Clarity - EY Techathon 6.0 Provider Data Validation Platform",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server/index.js",

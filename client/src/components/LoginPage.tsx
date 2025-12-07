@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Mail, Lock, ArrowLeft, AlertCircle} from 'lucide-react';
+import {ArrowLeft, AlertCircle} from 'lucide-react';
 import {Input} from './ui/input';
 import {Button} from './ui/button';
 import {authService} from '../utils/auth';
@@ -57,19 +57,17 @@ export function LoginPage({onLogin, onBack, onRegister}: LoginPageProps) {
                 style={{boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)'}}>
                 {/* Logo */}
                 <div className="flex justify-center mb-8">
-                    <div
-                        className="w-20 h-20 bg-gradient-to-br from-[#1976D2] to-[#0d47a1] rounded-2xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
-                        <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
-                            <path d="M16 4L4 10V14C4 21 8.8 27.4 16 28C23.2 27.4 28 21 28 14V10L16 4Z" fill="white"/>
-                            <path d="M14 20L10 16L11.4 14.6L14 17.2L20.6 10.6L22 12L14 20Z" fill="#1976D2"/>
-                        </svg>
-                    </div>
+                    <img 
+                        src="/logo.png" 
+                        alt="Clarity Logo" 
+                        className="h-24 w-auto object-contain rounded-xl hover:scale-105 transition-transform duration-300"
+                    />
                 </div>
 
                 {/* Title */}
                 <div className="text-center mb-8">
                     <h2 className="text-2xl font-bold mb-2">Welcome Back</h2>
-                    <p className="text-[#757575]">Sign in to access Provider Validator</p>
+                    <p className="text-[#757575]">Sign in to access Clarity</p>
                 </div>
 
                 {/* Error Message */}
@@ -87,7 +85,6 @@ export function LoginPage({onLogin, onBack, onRegister}: LoginPageProps) {
                         type="email"
                         placeholder="Enter your email"
                         label="Email Address"
-                        icon={<Mail size={20}/>}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -97,7 +94,6 @@ export function LoginPage({onLogin, onBack, onRegister}: LoginPageProps) {
                         type="password"
                         placeholder="Enter your password"
                         label="Password"
-                        icon={<Lock size={20}/>}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required

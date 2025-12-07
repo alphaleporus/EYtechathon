@@ -53,21 +53,12 @@ export function Layout({children, currentPage, onNavigate, onLogout}: LayoutProp
             <aside className="w-64 bg-white h-screen sticky top-0 flex flex-col animate-slideInLeft"
                    style={{boxShadow: '2px 0 8px rgba(0, 0, 0, 0.05)'}}>
                 {/* Logo Header */}
-                <div className="p-6 border-b border-[#E0E0E0]">
-                    <div className="flex items-center gap-3">
-                        <div
-                            className="w-10 h-10 bg-gradient-to-br from-[#1976D2] to-[#0d47a1] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md hover:scale-110 transition-transform duration-300">
-                            <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
-                                <path d="M16 4L4 10V14C4 21 8.8 27.4 16 28C23.2 27.4 28 21 28 14V10L16 4Z"
-                                      fill="white"/>
-                                <path d="M14 20L10 16L11.4 14.6L14 17.2L20.6 10.6L22 12L14 20Z" fill="#1976D2"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 className="text-[#212121]">Provider</h3>
-                            <p className="text-xs text-[#757575]">Validator</p>
-                        </div>
-                    </div>
+                <div className="p-6 border-b border-[#E0E0E0] flex justify-center">
+                    <img 
+                        src="/logo.png" 
+                        alt="Clarity Logo" 
+                        className="h-30 w-auto object-contain rounded-xl hover:scale-105 transition-transform duration-300"
+                    />
                 </div>
 
                 {/* Navigation */}

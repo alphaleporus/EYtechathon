@@ -1,15 +1,25 @@
-# 🏥 Healthcare Provider Data Validator
+# 🏥 Clarity - Healthcare Provider Data Validation
+
+<div align="center">
+  <img src="Media/logo.png" alt="Clarity Logo" width="300" >
 
 > **EY Techathon 6.0 - Challenge VI: Provider Data Validation Platform**
+</div>
+
+<br/>
 
 A comprehensive full-stack healthcare provider data management and validation platform built with React, TypeScript,
-Node.js, and Express. This application streamlines provider data management, validates data quality, and maintains
+Node.js, and Express. Clarity streamlines provider data management, validates data quality, and maintains
 regulatory compliance through detailed audit logging.
+
+<div align="center">
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen.svg)
 ![React](https://img.shields.io/badge/react-18.3.1-61dafb.svg)
+
+</div>
 
 ---
 
@@ -23,6 +33,7 @@ regulatory compliance through detailed audit logging.
 - [Running the Application](#running-the-application)
 - [Login Credentials](#login-credentials)
 - [Project Structure](#project-structure)
+- [Branding & Assets](#branding--assets)
 - [Usage Guide](#usage-guide)
 - [API Documentation](#api-documentation)
 - [File Validation Format](#file-validation-format)
@@ -33,9 +44,14 @@ regulatory compliance through detailed audit logging.
 
 ## 🎯 Overview
 
-The Healthcare Provider Data Validator is a modern, full-stack web application designed to streamline healthcare
+Clarity is a modern, full-stack web application designed to streamline healthcare
 provider data management operations. Built with a focus on data integrity, regulatory compliance, and user experience,
 it offers real-time validation, comprehensive analytics, and complete audit trails.
+
+<div align="center">
+  <img src="Media/Clarity - Healthcare Provider Data Validation _ EY Techathon 6_0.jpeg" alt="Clarity Dashboard Preview" width="800">
+  <p><i>Clarity Analytics Dashboard - Real-time insights and data visualization</i></p>
+</div>
 
 ### Key Highlights:
 
@@ -44,8 +60,9 @@ it offers real-time validation, comprehensive analytics, and complete audit trai
 - 👥 **Provider Management** with CRUD operations
 - 📁 **Data Validation** for CSV/XLSX files
 - 📝 **Complete Audit Trails** for compliance
-- 🎨 **Modern UI** with Figma design implementation
+- 🎨 **Modern UI** with custom branding and polished design
 - ⚡ **Fast & Responsive** React + Vite architecture
+- 🖼️ **Professional Branding** with custom logo and assets
 
 ---
 
@@ -183,7 +200,7 @@ cd ..
 ```
 
 > **Note**: This will install all required packages for both frontend and backend. The installation may take 2-3 minutes
-depending on your internet connection.
+> depending on your internet connection.
 
 ---
 
@@ -311,6 +328,9 @@ EYtechathon/
 │   │   └── index.css                # Global styles
 │   │
 │   ├── public/                      # Static assets
+│   │   ├── logo.png                 # Clarity logo
+│   │   ├── favicon.ico              # Browser favicon
+│   │   └── dashboard-preview.png    # Dashboard preview image
 │   ├── package.json                 # Frontend dependencies
 │   ├── tsconfig.json                # TypeScript configuration
 │   ├── vite.config.ts               # Vite configuration
@@ -329,6 +349,11 @@ EYtechathon/
 │   │
 │   └── index.js                     # Server entry point
 │
+├── Media/                           # Brand assets
+│   ├── logo.png                     # Clarity logo source
+│   ├── favicon.ico                  # Favicon source
+│   └── dashboard-preview.png        # Dashboard screenshot
+│
 ├── uploads/                         # Uploaded files storage
 ├── database.json                    # JSON database (users & data)
 ├── sample_providers.csv             # Sample data file
@@ -339,13 +364,52 @@ EYtechathon/
 
 ---
 
+## 🎨 Branding & Assets
+
+### Logo & Identity
+
+**Clarity** features professional branding with a custom logo that includes:
+
+- **Magnifying glass with healthcare cross**: Symbolizing data validation and healthcare focus
+- **Modern design**: Clean, rounded corners matching the UI aesthetic
+- **Consistent sizing**: Optimized for different display contexts
+   - Landing Page: 80px height
+   - Dashboard Sidebar: 120px height
+   - Login/Register Pages: 96px height
+
+### Visual Assets
+
+All brand assets are located in the `Media/` directory and deployed to `client/public/`:
+
+| Asset                   | Location                 | Purpose                    | Size  |
+|-------------------------|--------------------------|----------------------------|-------|
+| `logo.png`              | `/logo.png`              | Main logo across all pages | 4.1MB |
+| `favicon.ico`           | `/favicon.ico`           | Browser tab icon           | 15KB  |
+| `dashboard-preview.png` | `/dashboard-preview.png` | Landing page showcase      | 282KB |
+
+### Design System
+
+- **Primary Color**: `#1976D2` (Blue)
+- **Secondary Color**: `#0d47a1` (Dark Blue)
+- **Success**: `#43A047` (Green)
+- **Warning**: `#FB8C00` (Orange)
+- **Error**: `#E53935` (Red)
+- **Border Radius**: `rounded-xl` (12px) for consistent UI elements
+- **Shadows**: Layered shadows for depth and modern feel
+
+---
+
 ## 📖 Usage Guide
 
 ### 1. Landing Page
 
-The welcome screen introduces the platform features.
+The welcome screen showcases Clarity with:
 
-- Click **"Get Started"** to proceed to login
+- **Custom Branding**: Clarity logo prominently displayed
+- **Feature Overview**: Key platform capabilities highlighted
+- **Live Dashboard Preview**: Actual screenshot of the analytics dashboard
+- **Call-to-Action**: Get Started button to proceed to login
+- **Statistics**: Key metrics (10K+ providers, 99.8% accuracy, 24/7 uptime, 100% HIPAA compliant)
 
 ### 2. Authentication
 
@@ -905,8 +969,7 @@ This project is part of the EY Techathon 6.0 competition.
 
 For support and questions:
 
-- 📧 Email: support@providerdatavalidator.com
-- 📝 Documentation: [Full Docs](./docs)
+- 📧 Email: gaurav15042004@gmail.com
 - 🐛 Issues: [GitHub Issues](../../issues)
 
 ---
@@ -940,6 +1003,6 @@ For support and questions:
 
 **Last Updated**: December 2024 | **Version**: 1.0.0
 
-[⬆ Back to Top](#-healthcare-provider-data-validator)
+[⬆ Back to Top](#-clarity---healthcare-provider-data-validation)
 
 </div>

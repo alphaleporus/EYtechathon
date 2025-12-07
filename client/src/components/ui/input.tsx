@@ -17,18 +17,18 @@ function Input({className, type, label, icon, error, ...props}: InputProps) {
             )}
             <div className="relative">
                 {icon && (
-                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9E9E9E] pointer-events-none z-10">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#757575] pointer-events-none">
                         {icon}
                     </div>
                 )}
                 <input
                     type={type}
                     className={cn(
-                        "w-full h-[40px] rounded-md border border-[#E0E0E0] bg-white text-[#212121] text-sm transition-all",
+                        "w-full h-[48px] rounded-lg border border-[#E0E0E0] bg-white text-[#212121] text-sm transition-all",
                         "focus:outline-none focus:border-[#1976D2] focus:ring-2 focus:ring-[#1976D2]/20",
                         "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-50",
-                        "placeholder:text-[#BDBDBD]",
-                        icon ? "pl-11 pr-3" : "px-3",
+                        "placeholder:text-[#9E9E9E]",
+                        icon ? "pl-14 pr-4" : "px-4",
                         error ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : "",
                         className,
                     )}
