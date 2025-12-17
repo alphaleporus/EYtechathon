@@ -17,7 +17,16 @@ const auditRoutes = require('./routes/audit');
 const {initializeDatabase} = require('./database/init');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+
+// Environment variables with fallbacks
+const PORT = process.env.PORT || 5001;
+const JWT_SECRET = process.env.JWT_SECRET || 'clarity_secret_key_2024';
+
+if (!process.env.JWT_SECRET) {
+    console.warn('⚠️  WARNING: JWT_SECRET not found in environment variables.');
+    console.warn('   Using default development secret. DO NOT USE THIS IN PRODUCTION!');
+    process.env.JWT_SECRET = JWT_SECRET;
+}
 
 // Create uploads directory if it doesn't exist
 const uploadsDir = process.env.UPLOAD_DIR || './uploads';

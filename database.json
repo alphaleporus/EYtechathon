@@ -26,6 +26,24 @@
       "role": "user",
       "created_at": "2025-12-07T10:48:57.030Z",
       "updated_at": "2025-12-07T10:48:57.030Z"
+    },
+    {
+      "id": "229691c9-f5ef-4873-9a6d-cea150b5e5ef",
+      "email": "gaurav@gmail.com",
+      "password_hash": "$2a$10$2ICi0u7LD6hMSVUQGm0nXOeIuzUz8wR8obCyIhVeLBVBtBMXyed3e",
+      "name": "Gaurav",
+      "role": "user",
+      "created_at": "2025-12-17T17:48:24.463Z",
+      "updated_at": "2025-12-17T17:48:24.464Z"
+    },
+    {
+      "id": "9ec99696-4c70-438b-b3e4-20af916dacff",
+      "email": "gaurav123@gmail.com",
+      "password_hash": "$2a$10$iq.3r/mw4kXi6iOAwwotOeoKN4suVmkQhdtdwZn0dN5LqfuUDy.fK",
+      "name": "Gaurav",
+      "role": "user",
+      "created_at": "2025-12-17T17:48:34.200Z",
+      "updated_at": "2025-12-17T17:48:34.200Z"
     }
   ],
   "providers": [

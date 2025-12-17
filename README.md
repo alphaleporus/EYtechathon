@@ -202,6 +202,18 @@ cd ..
 > **Note**: This will install all required packages for both frontend and backend. The installation may take 2-3 minutes
 > depending on your internet connection.
 
+### Step 3: Environment Setup (Optional)
+
+The application comes with a pre-configured development setup. It will work out-of-the-box using default values.
+
+If you wish to customize the environment (e.g., change ports or secrets):
+1. Copy `.env.example` to `.env`
+2. Update the values in `.env`
+
+```bash
+cp .env.example .env
+```
+
 ---
 
 ## 🎮 Running the Application
@@ -361,6 +373,44 @@ EYtechathon/
 ├── .gitignore                       # Git ignore rules
 └── README.md                        # This file
 ```
+
+
+---
+
+## 🏗️ Architecture
+
+The following diagram illustrates the high-level architecture of the Clarity platform, showcasing the interaction between the React frontend, Node.js backend, and data persistence layers.
+
+
+---
+config:
+  layout: fixed
+  theme: redux
+  look: neo
+---
+flowchart LR
+ subgraph Client["Frontend (React + Vite)"]
+        UI["User Interface"]
+        AuthService["Auth Service"]
+        APIUtils["API Client (Axios)"]
+        Router["Manual Routing Logic"]
+  end
+ subgraph Server["Backend (Node.js + Express)"]
+        API["API Routes"]
+        Auth["Auth Middleware"]
+        Services["Business Logic Services"]
+        FileHandler["File Processing"]
+  end
+ subgraph Data["Persistence"]
+        LowDB[("LowDB JSON Database")]
+        FileSystem["File System (Uploads)"]
+  end
+    UI --> Router & AuthService & APIUtils
+    API --> Auth & Services
+    Services --> FileHandler & LowDB
+    APIUtils -- HTTP/REST --> API
+    FileHandler --> FileSystem
+
 
 ---
 
